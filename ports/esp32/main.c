@@ -140,6 +140,7 @@ void mp_task(void *pvParameter) {
         size_t heap_total = info.total_free_bytes + info.total_allocated_bytes;
         #endif
         mp_task_heap_size = MIN(heap_caps_get_largest_free_block(MALLOC_CAP_8BIT), heap_total / 2);
+        mp_task_heap_size -= 8192;  // Reserve 8K for C heap (mbedTLS needs it)
         mp_task_heap = malloc(mp_task_heap_size);
     }
 
